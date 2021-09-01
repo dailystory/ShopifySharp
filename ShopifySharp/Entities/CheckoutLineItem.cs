@@ -21,5 +21,8 @@ namespace ShopifySharp
         /// </summary>
         [JsonProperty("origin_location_id")]
         public long? OriginLocationId { get; set; }
+
+        [JsonProperty("id")]
+        public new string Id { get; set; }
     }
 }
