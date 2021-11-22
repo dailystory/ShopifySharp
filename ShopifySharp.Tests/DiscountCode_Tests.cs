@@ -50,6 +50,18 @@ namespace ShopifySharp.Tests
         }
 
         [Fact]
+        public async Task Gets_DiscountCode_By_Code()
+        {
+            var code = "UNIT_TEST_GET_BY_CODE";
+            var created = await Fixture.Create(code);
+            var retrieved = await Fixture.DiscountCodeService.GetAsync(code);
+
+            Assert.NotNull(retrieved);
+            Assert.Equal(code, retrieved.Code);
+            Assert.Equal(created.Id.Value, retrieved.Id.Value);
+        }
+
+        [Fact]
         public async Task Updates_DiscountCode()
         {
             var newCode = "UNITTEST-AFTER-UPDATE";
@@ -74,7 +86,7 @@ namespace ShopifySharp.Tests
 
         public async Task InitializeAsync()
         {
-            var policy = new SmartRetryExecutionPolicy();
+            var policy = new LeakyBucketExecutionPolicy();
 
             DiscountCodeService.SetExecutionPolicy(policy);
             PriceRuleService.SetExecutionPolicy(policy);

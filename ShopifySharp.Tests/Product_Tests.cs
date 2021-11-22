@@ -32,9 +32,12 @@ namespace ShopifySharp.Tests
             var list = await Fixture.Service.ListAsync();
 
             Assert.True(list.Items.Any());
-            Assert.NotNull(list.LinkHeader.NextLink);
-            Assert.NotNull(list.LinkHeader.NextLink.PageInfo);
-            Assert.NotNull(list.LinkHeader.NextLink.Url);
+            if (list.LinkHeader != null)
+            {
+                Assert.NotNull(list.LinkHeader.NextLink);
+                Assert.NotNull(list.LinkHeader.NextLink.PageInfo);
+                Assert.NotNull(list.LinkHeader.NextLink.Url);
+            }
         }
 
         [Fact]
@@ -226,7 +229,7 @@ namespace ShopifySharp.Tests
 
         public async Task InitializeAsync()
         {
-            Service.SetExecutionPolicy(new SmartRetryExecutionPolicy());
+            Service.SetExecutionPolicy(new LeakyBucketExecutionPolicy());
 
             // Create one for count, list, get, etc. orders.
             await Create();
