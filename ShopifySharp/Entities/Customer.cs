@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using ShopifySharp.Converters;
+using ShopifySharp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -168,5 +169,17 @@ namespace ShopifySharp
         /// </summary>
         [JsonProperty("metafields")]
         public IEnumerable<MetaField> Metafields { get; set; }
+
+        /// <summary>
+        /// The marketing consent information when the customer consented to receiving marketing material by SMS. The phone property is required to create a customer with SMS consent information and to perform an SMS update on a customer that doesn't have a phone number recorded. 
+        /// </summary>
+        [JsonProperty("sms_marketing_consent")]
+        public CustomerSmsMarketingConsent SmsMarketingConsent { get; set; }
+
+            /// <summary>
+    /// The marketing consent information when the customer consented to receiving marketing material by email. The email property is required to create a customer with email consent information and to update a customer for email consent that doesn't have an email recorded.
+    /// </summary>
+    [JsonProperty("email_marketing_consent")]
+    public CustomerEmailMarketingConsent EmailMarketingConsent { get; set; }
     }
 }
